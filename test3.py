@@ -30,4 +30,4 @@ elif sys.argv[1:] == ['client']:
 		s.sendto(text, (ip, PORT))
 
 else:
-	print >>sys.stderr, 'usage: udp_local.py server|client'
+	print >>sys.stderr, 'usage: test3.py server|client'
