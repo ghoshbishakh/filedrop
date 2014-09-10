@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import sys,socket
-print "\n Welcome to filedrop file sharing system \n"
+print "\n Welcome to filedrop file sharing system (test3)\n"
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 MAX = 65535
