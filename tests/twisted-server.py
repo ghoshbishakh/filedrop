@@ -12,7 +12,9 @@ class echoFactory(protocol.Factory):
 		return echoProtocol()
 
 
-reactor.listenTCP(55667, echoFactory())
+
+#START LISTENING TO TCP PORT 556677
+reactor.listenTCP(556677, echoFactory())
 print "run reactor \n"
 reactor.run()
 print "reactor running \n"
