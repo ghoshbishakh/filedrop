@@ -57,6 +57,9 @@ class Handler:
 	def onSendButtonClick(self, *args):
 		sendChatRequest()
 
+	def onPressEnter(self, *args):
+		sendChatRequest()
+
 GUIbuilder.connect_signals(Handler())
 
 
@@ -64,7 +67,9 @@ def sendChatRequest():
 	endIter= chatTextBuffer.get_end_iter()
 	text = chatEntry.get_text()
 	thisClient.sendChat(text)
-	displayChat(text)
+	chatEntry.set_text("")
+
+	#displayChat(text)
 
 def displayChat(text):
 	endIter= chatTextBuffer.get_end_iter()

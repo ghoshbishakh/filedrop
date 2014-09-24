@@ -46,7 +46,7 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
-              <object class="GtkEntry" id="entry1">
+              <object class="GtkEntry" id="chatEntry">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
               </object>

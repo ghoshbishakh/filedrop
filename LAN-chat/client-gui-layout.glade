@@ -49,6 +49,7 @@
               <object class="GtkEntry" id="chatEntry">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <signal name="activate" handler="onPressEnter" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">True</property>
