@@ -30,7 +30,7 @@ class chatProtocol(LineReceiver):
 			self.name= name
 			self.sendLine("Welcome, %s!"%(name)) #######
 			self.broadcastLine("%s has joined the chat room"%(name))
-			print "%s has joined the chat room \n"%(name)
+			#print "%s has joined the chat room \n"%(name)
 
 	def handleChat(self, message):
 		message = "<%s>: %s "%(self.name, message)
@@ -45,7 +45,7 @@ class chatProtocol(LineReceiver):
 		if self.name in self.factory.users:
 			del self.factory.users[self.name]
 			self.broadcastLine("%s has left the chat room."%(self.name))
-			print "%s has left the chat room. \n reason:"%(self.name, reason)
+			#print "%s has left the chat room. \n reason:"%(self.name, reason)
 
 #Chat Factory
 class chatFactory(protocol.Factory):
