@@ -45,7 +45,7 @@ class chatProtocol(LineReceiver):
 		if self.name in self.factory.users:
 			del self.factory.users[self.name]
 			self.broadcastLine("%s has left the chat room."%(self.name))
-			#print "%s has left the chat room. \n reason:"%(self.name, reason)
+			print "%s has left the chat room. \n reason:%s"%(self.name, reason)
 
 #Chat Factory
 class chatFactory(protocol.Factory):
