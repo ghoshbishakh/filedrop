@@ -22,6 +22,7 @@ class chatClient(LineReceiver):
 
 	def lineReceived(self, line):
 		print line
+		displayChat(line)
 		
 
 	def sendChat(self, chat):
@@ -56,14 +57,22 @@ class Handler:
 	def onSendButtonClick(self, *args):
 		sendChatRequest()
 
+GUIbuilder.connect_signals(Handler())
+
+
 def sendChatRequest():
 	endIter= chatTextBuffer.get_end_iter()
 	text = chatEntry.get_text()
-	chatTextBuffer.insert(endIter, text, length=len(text))
 	thisClient.sendChat(text)
+	displayChat(text)
+
+def displayChat(text):
+	endIter= chatTextBuffer.get_end_iter()
+	message="%s \n"%(text)
+	chatTextBuffer.insert(endIter, message, length=len(message))
 
 
-GUIbuilder.connect_signals(Handler())
+
 
 window.show_all()
 
