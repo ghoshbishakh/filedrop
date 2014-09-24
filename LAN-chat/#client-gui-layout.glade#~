@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Generated with glade 3.16.1 -->
 <interface>
-  <requires lib="gtk+" version="3.0"/>
+  <requires lib="gtk+" version="3.10"/>
   <object class="GtkTextBuffer" id="chatTextBuffer"/>
   <object class="GtkWindow" id="chatWindow">
     <property name="can_focus">False</property>
@@ -9,8 +9,6 @@
     <property name="window_position">center</property>
     <property name="default_width">600</property>
     <property name="default_height">400</property>
-    <property name="icon_name">preferences-system-network</property>
-    <property name="type_hint">dialog</property>
     <property name="gravity">north-east</property>
     <signal name="delete-event" handler="onDeleteWindow" swapped="no"/>
     <child>
@@ -31,7 +29,6 @@
                 <property name="margin_bottom">4</property>
                 <property name="hscroll_policy">natural</property>
                 <property name="vscroll_policy">natural</property>
-                <property name="editable">False</property>
                 <property name="wrap_mode">word</property>
                 <property name="cursor_visible">False</property>
                 <property name="buffer">chatTextBuffer</property>
@@ -82,6 +79,38 @@
             <property name="fill">True</property>
             <property name="position">1</property>
           </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkDialog" id="dialog1">
+    <property name="can_focus">False</property>
+    <property name="type_hint">dialog</property>
+    <child internal-child="vbox">
+      <object class="GtkBox" id="dialog-vbox1">
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox" id="dialog-action_area1">
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <placeholder/>
         </child>
       </object>
     </child>
