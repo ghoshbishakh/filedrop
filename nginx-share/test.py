@@ -26,7 +26,7 @@ class udpBroadcasterThread(threading.Thread):
         broadcastSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         broadcastSocket.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
         while(self.exitFlag == 0):
-            broadcastSocket.sendto('Broadcast message!',
+            broadcastSocket.sendto('Ping!',
                                    (self.address, self.PORT))
             #print "broadcasting \n"
             sleep(2)
