@@ -13,7 +13,7 @@ def handleBroadcast(address, message):
 
 
 class udpBroadcasterThread(threading.Thread):
-    """broadcast udp sockets (process runs in a separate thread of control)"""
+    """broadcast UDP sockets (process runs in a separate thread of control)"""
     def __init__(self, PORT, address='<broadcast>', threadName=None):
         threading.Thread.__init__(self)
         self.name = threadName
@@ -54,6 +54,32 @@ class udpBroadcaster(object):
                                    (self.address, self.PORT))
             #print "broadcasting \n"
             sleep(2)
+
+
+class udpListnerThread(threading.Thread):
+    """listen UDP broadcasts (process runs in a separate thread of control)"""
+    def __init__(self, PORT, address='', threadName=None):
+        threading.Thread.__init__(self)
+        self.name = threadName
+        self.PORT = PORT
+        self.address = address
+
+    exitFlag = 0
+
+    def run(self):
+        listnerSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        listnerSocket.bind((self.address, self.PORT))
+        while(self.exitFlag == 0):
+            data, address = listnerSocket.recvfrom(1024)
+            #print 'The client at', address, 'says', repr(data)
+        #listnerSocket.sendto('Your data was %d bytes' % len(data), address)
+            handleBroadcast(address, data)
+
+    def startListner(self):
+        self.start()
+
+    def stopListner(self):
+        self.exitFlag = 1
 
 
 class udpListner(object):
