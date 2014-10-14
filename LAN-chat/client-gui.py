@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 #import and install gtk3reactor
 from twisted.internet import gtk3reactor
 gtk3reactor.install()
