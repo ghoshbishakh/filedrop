@@ -5,16 +5,15 @@
     android:scrollbarStyle="insideOverlay"
     android:scrollbars="vertical" >
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout 
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
     >
     	<TextView
         android:id="@+id/text_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:capitalize="characters"
         android:text="Enter ip address and connect"
         android:gravity="top" />
 
@@ -28,8 +27,8 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_alignParentRight="true"
-	            android:onClick="connectToSocket"
-	            android:text="@string/button_connect" />
+	            android:onClick="shout"
+	            android:text="@string/button_send" />
 
 	        <EditText
 	            android:id="@+id/edit_message"
