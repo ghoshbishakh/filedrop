@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Filedrop</string>
+    <string name="button_connect">Connect</string>
+    <string name="button_send">Send</string>
+    <string name="edit_message">what\'s in your heart?</string>
+</resources>

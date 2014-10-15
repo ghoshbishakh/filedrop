@@ -1,3 +1,4 @@
+#!/usr/bin/python
 
 # Import protocol, reactor and LineReceiver
 from twisted.internet import protocol,reactor
@@ -15,6 +16,7 @@ class chatProtocol(LineReceiver):
 		self.sendLine("What's your name?")
 
 	def lineReceived(self, line):
+		print line
 		if self.state == "NOT_REGISTERED":
 			self.registerUser(line)
 		else:
@@ -30,7 +32,7 @@ class chatProtocol(LineReceiver):
 			self.name= name
 			self.sendLine("Welcome, %s!"%(name)) #######
 			self.broadcastLine("%s has joined the chat room"%(name))
-			print "%s has joined the chat room \n"%(name)
+			#print "%s has joined the chat room \n"%(name)
 
 	def handleChat(self, message):
 		message = "<%s>: %s "%(self.name, message)
