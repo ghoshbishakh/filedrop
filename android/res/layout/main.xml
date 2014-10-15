@@ -14,7 +14,8 @@
         android:id="@+id/text_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enter ip address and connect"
+        android:textSize="24dp"
+        android:text="\n"
         android:gravity="top" />
 
 	    <RelativeLayout
