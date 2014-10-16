@@ -1,0 +1,6 @@
+# view AndroidManifest.xml #generated:13
+-keep class com.binayak.filedrop.MainActivity { <init>(...); }
+
+# onClick res/layout/main.xml #generated:26
+-keepclassmembers class * { *** shout(...); }
+

@@ -1,5 +1,11 @@
-from gi.repository import Gtk
+from gi.repository import Gtk, GLib
 from libdiscovery import *
+
+
+def updateNodes(listStore, listener):
+    nodelist = listener.getNodes()
+    listStore.append([str(nodelist)])
+    return True
 
 
 def connect():
@@ -10,8 +16,8 @@ def connect():
 
 def disconnect():
     broadcaster.stopBroadcast()
-    listener.stopListener()
-    checker.stopCheck()
+    #listener.stopListener()
+    #checker.stopCheck()
 
 
 class Handler():
@@ -21,9 +27,20 @@ class Handler():
 
     def connectButton_clicked(*args):
         nodeList.remove(connectButton)
-        connect()
         nodeList.pack_start(disconnectButton, False, False, 0)
         nodeList.pack_start(spinner, False, False, 0)
+        connect()
+        listStore = Gtk.ListStore(str)
+        nodelist = listener.getNodes()
+        listStore.append([str(nodelist)])
+        listView = Gtk.TreeView(model=listStore)
+        renderer = Gtk.CellRendererText()
+        column = Gtk.TreeViewColumn("Title", renderer, text=0)
+        listView.append_column(column)
+        nodeList.remove(spinner)
+        nodeList.pack_start(listView, False, False, 0)
+        window.show_all()
+        GLib.timeout_add_seconds(2, updateNodes, listStore, listener)
 
     def disconnectButton_clicked(*args):
         disconnect()

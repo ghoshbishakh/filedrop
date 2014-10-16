@@ -3,7 +3,7 @@
 <interface>
   <requires lib="gtk+" version="3.0"/>
   <object class="GtkButton" id="disconnectButton">
-    <property name="label" translatable="yes">button</property>
+    <property name="label" translatable="yes">Disconnect</property>
     <property name="visible">True</property>
     <property name="can_focus">True</property>
     <property name="receives_default">True</property>

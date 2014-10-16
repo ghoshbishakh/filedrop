@@ -103,6 +103,6 @@ class nodeCheckerThread(threading.Thread):
         self.exitFlag = 1
 
 
-broadcaster = udpBroadcasterThread(45678)
+broadcaster = udpBroadcasterThread(45678, 'localhost')
 listener = udpListenerThread(45678)
 checker = nodeCheckerThread(listener)
