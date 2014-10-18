@@ -7,4 +7,5 @@ LAN Chat
 --------
 Simple python app using twisted library.
 Allows users in the same network to chat. (without internet of course)
-The android client is still not usable.
+
++ android client usable after manually altering server IP in the code.
