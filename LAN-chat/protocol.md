@@ -1,4 +1,4 @@
-API / Protocol / Data Formats for LAN-Chat
+API / Protocol / Data Formats for LAN-Chat (still not implemented)
 ==========================================
 
 ##The following are the request and response formats for LAN-chat:
