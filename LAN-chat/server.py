@@ -33,15 +33,15 @@ class chatProtocol(LineReceiver):
             self.name = name
             self.sendLine("Welcome, %s!" % (name))
             self.broadcastLine("%s has joined the chat room" % (name))
-            print "%s has joined the chat room \n"%(name)
+            print "%s has joined the chat room \n" % (name)
 
     def handleChat(self, message):
         message = "<%s>: %s " % (self.name, message)
         self.broadcastLine(message)
 
     def broadcastLine(self, line):
-        for name, protocol in self.factory.users.iteritems():
-            protocol.sendLine(line)
+        for name, Protocol in self.factory.users.iteritems():
+            Protocol.sendLine(line)
 
     def connectionLost(self, reason):
         if self.name in self.factory.users:
@@ -64,5 +64,5 @@ class chatFactory(protocol.Factory):
 
 # Assign PORT and Start reactor
 reactor.listenTCP(55667, chatFactory())
-print "attempting to run reactor \n"
+print "running reactor \n"
 reactor.run()

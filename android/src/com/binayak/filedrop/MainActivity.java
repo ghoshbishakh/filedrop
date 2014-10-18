@@ -19,7 +19,7 @@ public class MainActivity extends Activity
 	public static class socketContainer {
 		public Socket sread;
 		public Socket swrite;
-		public String ipAddress = "192.168.43.212";
+		public String ipAddress = "192.168.1.4";
 		public int port = 55667;
 	}
 	
