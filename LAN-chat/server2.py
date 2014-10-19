@@ -4,14 +4,15 @@
 from twisted.internet import protocol, reactor
 from twisted.protocols.basic import LineReceiver
 
-#Import JSON
+# Import JSON
 import json
 
 
 # PROTOCOL FUNCTIONS
-def shoutCreator(message, fromUser):
-    shout = {"usage": "shout", "data": {"from": fromUser, "message": message}}
-    return json.dumps(shout)
+def messageCreator(mode, message, fromUser, toUser="All"):
+    message = {"usage": mode, "data": {
+        "from": fromUser, "to": toUser, "message": message}}
+    return json.dumps(message)
 
 
 # Chat Protocol
@@ -63,9 +64,15 @@ class chatFactory(protocol.Factory):
         self.users = {}
 
     def broadcastLine(self, message, fromUser=None):
-        shout = shoutCreator(message, fromUser)
+        mode = "shout"
+        shout = messageCreator(mode, message, fromUser)
         for name, Protocol in self.users.iteritems():
             Protocol.sendLine(shout)
+
+    def whisper(self, message, fromUser, toUser):
+        mode = "whisper"
+        whisper = messageCreator(mode, message, fromUser, toUser)
+        self.users[fromUser].sendLine(whisper)
 
     def buildProtocol(self, addr):
         print "recieved an new connection \n"
