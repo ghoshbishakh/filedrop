@@ -9,9 +9,9 @@ import json
 
 
 # PROTOCOL FUNCTIONS
-def messageCreator(mode, message, fromUser, toUser="All"):
+def messageCreator(mode, message, fromUser):
     message = {"usage": mode, "data": {
-        "from": fromUser, "to": toUser, "message": message}}
+        "from": fromUser, "message": message}}
     return json.dumps(message)
 
 
@@ -71,8 +71,8 @@ class chatFactory(protocol.Factory):
 
     def whisper(self, message, fromUser, toUser):
         mode = "whisper"
-        whisper = messageCreator(mode, message, fromUser, toUser)
-        self.users[fromUser].sendLine(whisper)
+        whisper = messageCreator(mode, message, fromUser)
+        self.users[toUser].sendLine(whisper)
 
     def buildProtocol(self, addr):
         print "recieved an new connection \n"
