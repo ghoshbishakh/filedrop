@@ -25,21 +25,21 @@ API / Protocol / Data Formats for LAN-Chat (still not implemented)
 
 #### Response:
     {
-        "usage": "userList"
+        "usage": "userList",
         "data": ["user1", "user2","like this.."]
     } 
 
 ###Send message to all users (shout)
     {
-        "usage":"shout"
+        "usage":"shout",
         "data":"Your Message Here"
     }
     
 ###Send private message to specific user (whisper)
     {
-        "usage":"whisper"
+        "usage":"whisper",
         "data":{
-                    "to":"username of the user"
+                    "to":"username of the user",
                     "message":"Your Message Here"
                }
     }
@@ -47,17 +47,17 @@ API / Protocol / Data Formats for LAN-Chat (still not implemented)
 
 ###Recieve a broadcast (shout)
     {
-        "usage":"shout"
+        "usage":"shout",
         "data":{
-                    "from":"username"
+                    "from":"username",
                     "message":"Shout Message Here"
                }
     }
 ###Recieve a private message
     {
-        "usage":"whisper"
+        "usage":"whisper",
         "data":{
-                "from":"username of the user"
+                "from":"username of the user",
                 "message":"Your Message Here"
                }
     }        
