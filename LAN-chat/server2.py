@@ -10,27 +10,32 @@ import json
 
 # PROTOCOL FUNCTIONS
 def handleChat(Protocol, line):
-    inMessage = json.loads(str(line))
-    usage = inMessage["usage"]
-    if(usage == "shout"):
-        username = Protocol.name
-        message = inMessage["data"]
-        outMessage = '{"usage":"shout", "data":{"from":"'+username+'", "message":"'+message+'"}'
-        print outMessage
-        Protocol.factory.sendChat("shout", outMessage)
-    elif(usage == "whisper"):
-        username = Protocol.name
-        message = inMessage["data"]["message"]
-        to = inMessage["data"]["to"]
-        outMessage = '{"usage":"whisper", "data":{"from":"'+username+'", "message":"'+message+'"}}'
-        print outMessage
-        Protocol.factory.sendChat("whisper", outMessage, to)
-    elif(usage == "getList"):
-        List = list(Protocol.factory.users.keys())
-        outMessage = '{"usage": "userList","data": '+str(List)+'}'
-        Protocol.factory.sendChat("shout", outMessage)
-    else:
-        pass
+    try:
+        inMessage = json.loads(str(line))
+        usage = inMessage["usage"]
+        if(usage == "shout"):
+            username = Protocol.name
+            message = inMessage["data"]
+            outMessage = '{"usage":"shout", "data":{"from":"' + \
+                username + '", "message":"' + message + '"}'
+            print outMessage
+            Protocol.factory.sendChat("shout", outMessage)
+        elif(usage == "whisper"):
+            username = Protocol.name
+            message = inMessage["data"]["message"]
+            to = inMessage["data"]["to"]
+            outMessage = '{"usage":"whisper", "data":{"from":"' + \
+                username + '", "message":"' + message + '"}}'
+            print outMessage
+            Protocol.factory.sendChat("whisper", outMessage, to)
+        elif(usage == "getList"):
+            List = list(Protocol.factory.users.keys())
+            outMessage = '{"usage": "userList","data": ' + str(List) + '}'
+            Protocol.factory.sendChat("shout", outMessage)
+        else:
+            pass
+    except:
+        Protocol.factory.sendChat("shout", line)
 
 
 def messageCreator(mode, message, fromUser):
@@ -66,14 +71,15 @@ class chatProtocol(LineReceiver):
             self.state = "REGISTERED"
             self.name = name
             self.sendLine("Welcome, %s!" % (name))
-            self.factory.broadcastLine("%s has joined the chat room" % (name))
+            outMessage = "%s has joined the chat room" % (name)
+            self.factory.sendChat("shout", outMessage)
             print "%s has joined the chat room \n" % (name)
 
     def connectionLost(self, reason):
         if self.name in self.factory.users:
             del self.factory.users[self.name]
-            self.factory.broadcastLine(
-                "%s has left the chat room." % (self.name))
+            self.factory.sendChat(
+                "shout", "%s has left the chat room." % (self.name))
             print "%s has left the chat room. \n reason:%s" % (self.name, reason)
 
 # Chat Factory
@@ -90,17 +96,6 @@ class chatFactory(protocol.Factory):
                 Protocol.sendLine(str(message))
         if(mode == "whisper"):
             self.users[to].sendLine(str(message))
-
-    def broadcastLine(self, message, fromUser=None):
-        mode = "shout"
-        shout = messageCreator(mode, message, fromUser)
-        for name, Protocol in self.users.iteritems():
-            Protocol.sendLine(shout)
-
-    def whisper(self, message, fromUser, toUser):
-        mode = "whisper"
-        whisper = messageCreator(mode, message, fromUser)
-        self.users[toUser].sendLine(whisper)
 
     def buildProtocol(self, addr):
         print "recieved an new connection \n"

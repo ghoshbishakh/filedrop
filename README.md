@@ -10,7 +10,7 @@ Allows users in the same network to chat. (without internet of course)
 
 + android client usable after manually altering server IP in the code.
 
-API / Protocol / Data Formats for LAN-Chat (still not implemented)
+API / Protocol / Data Formats for LAN-Chat 
 ==========================================
 
 ##The following are the request and response formats for LAN-chat:
