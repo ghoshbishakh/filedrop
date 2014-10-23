@@ -9,6 +9,30 @@ import json
 
 
 # PROTOCOL FUNCTIONS
+def handleChat(Protocol, line):
+    inMessage = json.loads(str(line))
+    usage = inMessage["usage"]
+    if(usage == "shout"):
+        username = Protocol.name
+        message = inMessage["data"]
+        outMessage = '{"usage":"shout", "data":{"from":"'+username+'", "message":"'+message+'"}'
+        print outMessage
+        Protocol.factory.sendChat("shout", outMessage)
+    elif(usage == "whisper"):
+        username = Protocol.name
+        message = inMessage["data"]["message"]
+        to = inMessage["data"]["to"]
+        outMessage = '{"usage":"whisper", "data":{"from":"'+username+'", "message":"'+message+'"}}'
+        print outMessage
+        Protocol.factory.sendChat("whisper", outMessage, to)
+    elif(usage == "getList"):
+        List = list(Protocol.factory.users.keys())
+        outMessage = '{"usage": "userList","data": '+str(List)+'}'
+        Protocol.factory.sendChat("shout", outMessage)
+    else:
+        pass
+
+
 def messageCreator(mode, message, fromUser):
     message = {"usage": mode, "data": {
         "from": fromUser, "message": message}}
@@ -31,7 +55,7 @@ class chatProtocol(LineReceiver):
         if self.state == "NOT_REGISTERED":
             self.registerUser(line)
         else:
-            self.handleChat(line)
+            handleChat(self, line)
 
     def registerUser(self, name):
         if name in self.factory.users:
@@ -44,9 +68,6 @@ class chatProtocol(LineReceiver):
             self.sendLine("Welcome, %s!" % (name))
             self.factory.broadcastLine("%s has joined the chat room" % (name))
             print "%s has joined the chat room \n" % (name)
-
-    def handleChat(self, message):
-        self.factory.broadcastLine(message, self.name)
 
     def connectionLost(self, reason):
         if self.name in self.factory.users:
@@ -62,6 +83,13 @@ class chatFactory(protocol.Factory):
 
     def __init__(self):
         self.users = {}
+
+    def sendChat(self, mode, message, to="All"):
+        if(mode == "shout"):
+            for name, Protocol in self.users.iteritems():
+                Protocol.sendLine(str(message))
+        if(mode == "whisper"):
+            self.users[to].sendLine(str(message))
 
     def broadcastLine(self, message, fromUser=None):
         mode = "shout"
